@@ -6,6 +6,13 @@
   "directories": {
     "test": "tests"
   },
+  "scripts": {
+    "test": "jest --watchAll --verbose",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "8.9.1"
+  },
   "dependencies": {
     "compression": "^1.7.4",
     "config": "^1.29.4",
@@ -20,13 +27,7 @@
   "devDependencies": {
     "jest": "^22.2.2"
   },
-  "scripts": {
-    "test": "jest --watchAll --verbose",
-    "start": "node index.js"
-  },
-  "engines": {
-    "node": "8.9.1"
-  },
+  
   "author": "",
   "license": "ISC"
 }
