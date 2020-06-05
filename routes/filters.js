@@ -2,9 +2,6 @@ const {Filter, validate} = require('../models/fliter')
 const mongoose = require('mongoose')
 const express = require('express');
 const router = express.Router();
-var cors = require('cors')
-
-app.use(cors());
 
 
 router.get('/', async (req, res) => {
