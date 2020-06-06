@@ -5,8 +5,26 @@ const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-  const filter = await Filter.find().sort({first_name: 1});
-  res.send(filter);
+  const { page = 1, limit = 100 } = req.query;
+  try {
+    // execute query with page and limit values
+    const filter = await Filter.find().sort({first_name: 1})
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    // get total documents in the Posts collection 
+    const count = await Filter.countDocuments();
+
+    // return response with posts, total pages, and current page
+    res.send({
+      filter,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 router.post('/', async (req, res) => {
