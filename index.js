@@ -3,7 +3,19 @@ const express = require('express');
 var cors = require('cors');
 const app = express();
 
-app.use(cors());
+var whitelist = "https://filtered-neville.herokuapp.com/"
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+
+app.use(cors(corsOptions));
 
 require('./startup/routes')(app)
 require('./startup/db')();
