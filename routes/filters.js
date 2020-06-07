@@ -2,30 +2,32 @@ const {Filter, validate} = require('../models/fliter')
 const mongoose = require('mongoose')
 const express = require('express');
 const router = express.Router();
+const paginate = require('jw-paginate');
 
 
 router.get('/', async (req, res) => {
-  const { page = 1, limit = 100 } = req.query;
-  try {
-    // execute query with page and limit values
+  
     const filter = await Filter.find().sort({first_name: 1})
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
-      .exec();
+  
+    // get page from query params or default to first page
+    const page = parseInt(req.query.page) || 1;
 
-    // get total documents in the Posts collection 
-    const count = await Filter.countDocuments();
+    // get pager object for specified page
+    const pageSize = 500;
+    const pager = paginate(filter.length, page, pageSize);
+
+    // get page of items from items array
+    const pageOfItems = filter.slice(pager.startIndex, pager.endIndex + 1);
 
     // return response with posts, total pages, and current page
     res.send({
-      filter,
-      totalPages: Math.ceil(count / limit),
-      currentPage: page
+      pager,
+      pageOfItems 
     });
-  } catch (err) {
-    console.error(err.message);
-  }
+  
 });
+
+
 
 router.post('/', async (req, res) => {
   const { error } = validate(req.body); 
