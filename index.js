@@ -6,8 +6,6 @@ const app = express();
 // Allow all
 app.use(cors());
 
-
-
 require('./startup/routes')(app)
 require('./startup/db')();
 require('./startup/prod')(app);
