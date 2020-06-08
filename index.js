@@ -11,7 +11,8 @@ app.use(function (req, res, next) {
 		"Access-Control-Allow-Headers",
 		"x-access-token,X-Requested-With,Content-Type,Authorization,cache-control"
 	);
-	res.setHeader("X-Powered-By", "MadtServerInjunctions!");
+  res.setHeader("X-Powered-By", "MadtServerInjunctions!");
+  res.setHeader( 'Access-Control-Expose-Headers: X-WP-Total, X-WP-TotalPages');
 	next();
 });
 
