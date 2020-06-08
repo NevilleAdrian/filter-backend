@@ -1,7 +1,8 @@
 const express = require('express');
+import cors from 'cors';
 const filters = require('../routes/filters');
 const error = require('../middleware/error')
-app.use(cors());
+
 
 function routes(app)  {
 
@@ -13,6 +14,7 @@ app.use(function(req,res,next) {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   next();
 })
+app.use(cors());
      
 app.use('/api/filters', filters);
 app.use(error);
