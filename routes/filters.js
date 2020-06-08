@@ -27,26 +27,6 @@ router.get('/',async (req, res) => {
   
 });
 
-router.get('/allow-cors',async (req, res) => {
-  response.set('Access-Control-Allow-Origin', '*');
-  const filter = await Filter.find().sort({first_name: 1})
-  
-  // get page from query params or default to first page
-  const page = parseInt(req.query.page) || 1;
-
-  // get pager object for specified page
-  const pageSize = 500;
-  const pager = paginate(filter.length, page, pageSize);
-
-  // get page of items from items array
-  const pageOfItems = filter.slice(pager.startIndex, pager.endIndex + 1);
-
-  // return response with posts, total pages, and current page
-  res.send({
-    pager,
-    pageOfItems 
-  });
-});
 
 
 
