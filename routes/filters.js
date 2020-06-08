@@ -1,11 +1,17 @@
 const {Filter, validate} = require('../models/fliter')
 const mongoose = require('mongoose')
 const express = require('express');
+var cors = require('cors');
 const router = express.Router();
 const paginate = require('jw-paginate');
 
+var corsOptions = {
+  origin: 'https://filtered-neville.herokuapp.com/',
+  optionsSuccessStatus: 200
+};
 
-router.get('/',async (req, res) => {
+
+router.get('/', cors(corsOptions), async (req, res) => {
   
     const filter = await Filter.find().sort({first_name: 1})
   
