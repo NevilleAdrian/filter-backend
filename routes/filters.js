@@ -2,12 +2,11 @@ const {Filter, validate} = require('../models/fliter')
 const mongoose = require('mongoose')
 const express = require('express');
 const router = express.Router();
-var cors = require('cors');
 const paginate = require('jw-paginate');
 
 
 
-router.get('/', cors(), async (req, res) => {
+router.get('/', async (req, res) => {
   
     const filter = await Filter.find().sort({first_name: 1})
   
