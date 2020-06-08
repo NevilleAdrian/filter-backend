@@ -5,7 +5,6 @@ const router = express.Router();
 const paginate = require('jw-paginate');
 
 
-
 router.get('/', async (req, res) => {
   
     const filter = await Filter.find().sort({first_name: 1})
@@ -27,7 +26,6 @@ router.get('/', async (req, res) => {
     });
   
 });
-
 
 
 

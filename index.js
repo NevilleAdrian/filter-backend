@@ -2,24 +2,20 @@ require('express-async-errors');
 const express = require('express');
 const app = express();
 
-// configure our app to handle CORS requests
-app.use(function (req, res, next) {
-	res.setHeader("Access-Control-Allow-Origin", "*");
-	res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-	res.setHeader("Access-Control-Allow-Credentials", "true");
-	res.setHeader(
-		"Access-Control-Allow-Headers",
-		"x-access-token,X-Requested-With,Content-Type,Authorization,cache-control"
-	);
-  res.setHeader("X-Powered-By", "MadtServerInjunctions!");
-	next();
-});
+
+const cors = require('cors');
+app.use(cors());
+
 
 require('./startup/routes')(app)
 require('./startup/db')();
 require('./startup/prod')(app);
 
-
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 
 const port = process.env.PORT || 3000;
